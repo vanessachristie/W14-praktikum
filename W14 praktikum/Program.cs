@@ -5,11 +5,6 @@ namespace W14_praktikum
     
     class Program
     {
-        public static int Input ()
-        { 
-            int input = Convert.ToInt32(Console.ReadLine());
-            return input;
-        }
         public static void Menu ()
         {
             Console.Write("input : ");
@@ -18,66 +13,105 @@ namespace W14_praktikum
         {
             Console.Write("output : ");
         }
+        public static void CekPrima (int angka)
+        {
+            Console.WriteLine("Angka Prima");
+            int jumlahBagi = 0;
+            int temp = 0;
+            int apakahPrima = 0;
+            for (int i = 0; i < angka; i++)
+            {
+                for (int j = 0; j < angka; j++)
+                {
+                    apakahPrima = 0;
+                    while (apakahPrima == 0)
+                    {
+                        temp++;
+                        jumlahBagi = 0;
+                        for (int c = 1; c <= temp; c++)
+                        {
+                            if (temp % c == 0)
+                            {
+                                jumlahBagi++;
+                            }
+                        }
+                        if (jumlahBagi == 2)
+                        {
+                            apakahPrima = 1;
+                        }
+                        else
+                        {
+                            apakahPrima = 0;
+                        }
+                    }
+                    Console.Write($"{temp} ".PadLeft(5));
+                }
+                Console.WriteLine();
+            }
+        }
+        public static void CekNonPrima(int angka)
+        {
+            Console.WriteLine("Bukan Angka Prima");
+            int jumlahBagi = 0;
+            int temp = 0;
+            int apakahPrima = 0;
+            for (int i = 0; i < angka; i++)
+            {
+                for (int j = 0; j < angka; j++)
+                {
+                    apakahPrima = 0;
+                    while (apakahPrima == 0)
+                    {
+                        temp++;
+                        jumlahBagi = 0;
+                        for (int c= 1; c <= temp; c++)
+                        {
+                            if (temp % c == 0)
+                            {
+                                jumlahBagi++;
+                            }
+                        }
+                        if (jumlahBagi == 2)
+                            apakahPrima = 0;
+                        else
+                            apakahPrima = 1;
+                    }
+                    Console.Write($"{temp} ".PadLeft(4));
+                }
+                Console.WriteLine();
+            }
+
+        }
 
         static void Main(string[] args)
         {
             Menu();
-            int angka = Input();
-            Menu2();
-            int HasilBagi = 0;
-            int m = angka / 2;
-            bool Prima = true;
-            for (int i = 2; i <= m; i++)
+            int angka =Convert.ToInt32(Console.ReadLine());
+            while (angka < 2)
             {
-                if (angka % i == 0)
-                {
-                    HasilBagi += 1;
-                }
+                Console.WriteLine("Input salah, coba lagi");
+                angka = Convert.ToInt32(Console.ReadLine());
             }
+                Menu2();
+                int HasilBagi = 0;
+                int m = angka / 2;
+                for (int i = 2; i <= m; i++)
+                {
+                    if (angka % i == 0)
+                    {
+                        HasilBagi += 1;
+                    }
+                }
 
-            if (HasilBagi == 0)
-            {
-                Console.WriteLine("Angka prima");
-                int[,] angkaPrima = new int[angka, angka];
-                for (int i = 2; i <= 1000; i++)
+                if (HasilBagi == 0)
                 {
-                    for (int j = 2; j < i; j++)
-                    {
-                        if ((i % j) == 0)
-                        {
-                            Prima = false;
-                            break;
-                        }
-                    }
-                    if (Prima)
-                        Console.Write(+i + "  ");
-                    Prima = true;
+                    CekPrima (angka);
                 }
-                Console.ReadKey();
-            }
-            else
-            {
-                Console.WriteLine("Bukan angka prima");
-                for (int i = 1; i <= angka; i++)
+                else
                 {
-                    for (int j = 1; j <= angka; j++)
-                    {
-                        if (i == j && i % j != 0)
-                        {
-                            Prima = true;
-                            Console.Write("\t" + i);
-                        }
-                    }
-                    if (Prima)
-                    {
-                        Console.Write(String.Format("{0,6}", (i)));
-                    }
-                    Prima = true;
+                    CekNonPrima(angka);
                 }
-                Console.ReadKey();
             }
-
 
         }
     }
-}
